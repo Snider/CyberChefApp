@@ -1,0 +1,74 @@
+name: Desktop build
+permissions:
+  contents: write
+# Build for everything on "main" & "v*.*.*"
+on:
+  repository_dispatch:
+    types: [ build ]
+  push:
+    branches:
+      - 'main'
+      - 'dev'
+      - 'v*'
+    tags:
+      - 'v*'
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    branches:
+      - 'main'
+      - 'dev'
+      - 'v*'
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout code
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - run: make setup
+      - uses: dAppServer/wails-build-action@v2
+        with:
+          build-name: CyberChef
+          build-platform: linux/amd64
+          wails-build-webview2: "embed"
+  macos:
+    runs-on: macos-latest
+    steps:
+      # Checkout code
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - run: make setup
+      - uses: dAppServer/wails-build-action@v2
+        with:
+          build-name: CyberChef
+          build-platform: darwin/universal
+          wails-build-webview2: "embed"
+          sign: "false"
+          sign-macos-apple-password: ${{ secrets.APPLE_PASSWORD }}
+          sign-macos-app-id: "Developer ID Application: Lethean LTD (W2DNA5L5DY)"
+          sign-macos-app-cert: ${{ secrets.MAC_DEVELOPER_CERT }}
+          sign-macos-app-cert-password: ${{ secrets.MAC_DEVELOPER_PASS }}
+          sign-macos-installer-id: "Developer ID Installer: Lethean LTD (W2DNA5L5DY)"
+          sign-macos-installer-cert: ${{ secrets.MAC_DEVELOPER_INSTALL_CERT }}
+          sign-macos-installer-cert-password: ${{ secrets.MAC_DEVELOPER_INSTALL_PASS }}
+
+  windows:
+    runs-on: windows-2022
+    steps:
+      # Checkout code
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - run: make setup
+      - uses: dAppServer/wails-build-action@v2
+        with:
+          build-name: CyberChef.exe
+          build-platform: windows/amd64
+          wails-build-webview2: "embed"
+

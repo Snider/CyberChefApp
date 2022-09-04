@@ -1,0 +1,13 @@
+{
+  "name": "CyberChef",
+  "outputfilename": "CyberChef",
+  "assetdir": "build/prod",
+  "frontend:install": "npm install",
+  "frontend:build": "npx grunt prod",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "Snider",
+    "email": "snider@lt.hn"
+  }
+}

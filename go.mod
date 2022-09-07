@@ -1,8 +1,8 @@
 module changeme
 
-go 1.17
+go 1.19
 
-require github.com/wailsapp/wails/v2 v2.0.0-beta.43
+require github.com/wailsapp/wails/v2 v2.0.0-beta.44.2
 
 require (
 	github.com/bep/debounce v1.2.1 // indirect

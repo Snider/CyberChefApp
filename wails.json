@@ -4,10 +4,10 @@
   "assetdir": "build/prod",
   "frontend:install": "npm install",
   "frontend:build": "npx grunt prod",
-  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:watcher": "npm run start",
   "frontend:dev:serverUrl": "auto",
   "author": {
-    "name": "Snider",
+    "name": "Wrapper for GCHQ's App",
     "email": "snider@lt.hn"
   }
 }
